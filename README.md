@@ -49,4 +49,4 @@ int main() {
 [continuous_range]: https://en.cppreference.com/w/cpp/ranges/contiguous_range
 [trivially_copyable]: https://en.cppreference.com/w/cpp/types/is_trivially_copyable
 [Boost.Serialization]: https://www.boost.org/doc/libs/1_66_0/boost/serialization/vector.hpp
-[Biomodern.DitbitVector]: https://github.com/hewillk/biomodern-dibit_vector
+[Biomodern.DitbitVector]: https://github.com/hewillk/xbit_vector
