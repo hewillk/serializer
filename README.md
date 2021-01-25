@@ -13,7 +13,7 @@ This project is header-only and has no dependency with other libraries, if you w
 ```cpp
 #include <string>
 #include "serializer.hpp"
-#include "dibit_vector.hpp"
+#include "xbit_vector.hpp"
 
 template <typename R>
 void test(const R& r, const char* path) {
@@ -41,8 +41,8 @@ int main() {
   test(std::vector{7, 5, 16, 8}, "vector_int.bin");
   test(std::string{"Exemplar"}, "string.bin");
   test(std::vector{Point{0.0, 0.0}, {1.0, 2.0}, {3.0, 4.0}}, "vector_point.bin");
-  using biomodern::container::DibitVector;
-  test(DibitVector{1, 0, 2, 3, 3, 0, 2}, "DibitVector.bin");
+  using biomodern::DibitVector;
+  test(DibitVector<>{1, 0, 2, 3, 3, 0, 2}, "DibitVector.bin");
 }
 ```
 
