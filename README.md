@@ -1,5 +1,5 @@
 ## Biomodern-Serializer
-`Biomodern.Serializer` is a C++20 generalized serializer which can serialize the [`continuous_range`][continuous_range] which `value_type` is [`trivially_copyable`][trivially_copyable], such as scalar type, simple `struct`, `array` etc. The binary archive file size is actually the memory occupation in run time plus one `size_t` which indicates the size of the continuous container.
+`Biomodern.Serializer` is a C++20 generalized serializer that can serialize the [`continuous_range`][continuous_range] which `value_type` is [`trivially_copyable`][trivially_copyable], such as scalar type, simple `struct`, `array` etc. The binary archive file size is actually the memory occupation in run time plus one `size_t` which indicates the size of the continuous container.
 
 Furthermore, `Biomodern.Serializer` can also serialize the `vector<bool>` and still make the binary archive file size as small as the original memory occupation. This is hugely different from [`Boost.Serialization`][Boost.Serialization] which store the `vector<bool>` as a `vector<uint8_t>` even in `binary_archive` mode. 
 
