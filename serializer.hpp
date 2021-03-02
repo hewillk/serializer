@@ -1,5 +1,4 @@
-#ifndef BIOMODERN__UTILITY_SERIALIZER_HPP_
-#define BIOMODERN__UTILITY_SERIALIZER_HPP_
+#pragma once
 
 #include <cassert>
 #include <fstream>
@@ -30,9 +29,8 @@ struct Serializer {
 
  public:
   template <std::ranges::random_access_range R, auto BUF_SIZE = 8192>
-  requires std::is_trivially_copyable_v<
-      std::ranges::range_value_t<R>> static auto
-  save(std::ofstream& fout, const R& r) {
+  requires std::is_trivially_copyable_v<std::ranges::range_value_t<R>> static auto save(
+      std::ofstream& fout, const R& r) {
     const auto size = r.size();
     if (size == 0) return;
     // write size of range
@@ -43,14 +41,12 @@ struct Serializer {
     for (auto batch = 0u; batch < bytes / BUF_SIZE; batch++, begin += BUF_SIZE)
       fout.write(begin, BUF_SIZE);
     // write remains
-    if (const auto remains = bytes % BUF_SIZE; remains)
-      fout.write(begin, remains);
+    if (const auto remains = bytes % BUF_SIZE; remains) fout.write(begin, remains);
   }
 
   template <std::ranges::random_access_range R, auto BUF_SIZE = 8192>
-  requires std::is_trivially_copyable_v<
-      std::ranges::range_value_t<R>> static auto
-  load(std::ifstream& fin, R& r) {
+  requires std::is_trivially_copyable_v<std::ranges::range_value_t<R>> static auto load(
+      std::ifstream& fin, R& r) {
     const auto size = [&] {
       auto size = r.size();
       // read size of results
@@ -63,8 +59,7 @@ struct Serializer {
     const auto bytes = get_bytes(r);
     // read contents
     auto begin = reinterpret_cast<char*>(get_data(r));
-    for (auto batch = 0u; batch < bytes / BUF_SIZE;
-         batch++, begin += BUF_SIZE) {
+    for (auto batch = 0u; batch < bytes / BUF_SIZE; batch++, begin += BUF_SIZE) {
       fin.read(begin, BUF_SIZE);
       assert(fin.gcount() == BUF_SIZE);
     }
@@ -77,5 +72,3 @@ struct Serializer {
 };
 
 }  // namespace biomodern::utility
-
-#endif
