@@ -10,7 +10,8 @@ namespace biomodern::utility {
 struct Serializer {
  private:
   template <std::ranges::random_access_range R>
-  constexpr static auto get_bytes(const R& r) noexcept {
+  constexpr static auto 
+  get_bytes(const R& r) noexcept {
     if constexpr (requires { r.num_blocks(); })
       return r.num_blocks() * sizeof(typename R::block_type);
     else if constexpr (std::same_as<R, std::vector<bool>>)
@@ -20,7 +21,8 @@ struct Serializer {
   }
 
   template <std::ranges::random_access_range R>
-  static auto get_data(R& r) noexcept {
+  static auto 
+  get_data(R& r) noexcept {
     if constexpr (std::same_as<std::remove_const_t<R>, std::vector<bool>>)
       return *reinterpret_cast<std::uint64_t* const*>(&r);
     else
@@ -29,8 +31,9 @@ struct Serializer {
 
  public:
   template <std::ranges::random_access_range R, auto BUF_SIZE = 8192>
-  requires std::is_trivially_copyable_v<std::ranges::range_value_t<R>> static auto save(
-      std::ofstream& fout, const R& r) {
+    requires std::is_trivially_copyable_v<std::ranges::range_value_t<R>> 
+  static auto 
+  save(std::ofstream& fout, const R& r) {
     const auto size = r.size();
     if (size == 0) return;
     // write size of range
@@ -45,8 +48,8 @@ struct Serializer {
   }
 
   template <std::ranges::random_access_range R, auto BUF_SIZE = 8192>
-  requires std::is_trivially_copyable_v<std::ranges::range_value_t<R>> static auto load(
-      std::ifstream& fin, R& r) {
+    requires std::is_trivially_copyable_v<std::ranges::range_value_t<R>> 
+  static auto load(std::ifstream& fin, R& r) {
     const auto size = [&] {
       auto size = r.size();
       // read size of results
